@@ -17,6 +17,12 @@ serde = { version = "1.0.219", features = ["derive"] }
 config = "0.15.13"
 uuid = { version = "1.17.0", features = ["v4"] }
 dotenv = "0.15.0"
+tracing = { version = "0.1.41", features = ["log"] }
+tracing-subscriber = { version = "0.3.19", features = ["registry", "env-filter"] }
+tracing-bunyan-formatter = "0.3.10"
+tracing-log = "0.2.0"
+secrecy = { version = "0.10.3", features = ["serde"] }
+tracing-actix-web = "0.7.18"
 
 [dependencies.sqlx]
 version = "0.8.6"
@@ -32,3 +38,4 @@ features = [
 
 [dev-dependencies]
 reqwest = "0.12.22"
+once_cell = "1.21.3"
