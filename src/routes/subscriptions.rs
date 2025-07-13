@@ -1,11 +1,9 @@
 use actix_web::{HttpResponse, web};
 use chrono::Utc;
 use serde::Deserialize;
-use serde::de::Error;
+use sqlx::PgPool;
 use sqlx::types::{chrono, uuid};
-use sqlx::{PgConnection, PgPool};
 use tracing;
-use tracing::Instrument;
 use uuid::Uuid;
 
 #[derive(Deserialize)]

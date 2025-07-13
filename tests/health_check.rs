@@ -28,8 +28,7 @@ static TRACING: Lazy<()> = Lazy::new(|| {
 });
 
 pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
-    let connection_string = config.connection_string_without_db();
-    let mut connection = PgConnection::connect(&connection_string)
+    let mut connection = PgConnection::connect_with(&config.without_db())
         .await
         .expect("failed to connect to Postgres.");
     connection
@@ -37,7 +36,7 @@ pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
         .await
         .expect("Failed to create Test postgres DB");
 
-    let pool = PgPool::connect(&config.connection_string())
+    let pool = PgPool::connect_with(config.with_db())
         .await
         .expect("failed to connect to Postgres.");
     sqlx::migrate!("./migrations")

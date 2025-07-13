@@ -1,4 +1,4 @@
-use sqlx::PgPool;
+use sqlx::postgres::PgPoolOptions;
 use std::net::TcpListener;
 use zero2prod::configuration::get_configuration;
 use zero2prod::startup::run;
@@ -11,10 +11,7 @@ async fn main() -> Result<(), std::io::Error> {
 
     let configuration = get_configuration().expect("Failed to read configuration");
 
-    let connection_string = configuration.database.connection_string();
-    let pool = PgPool::connect_lazy(&connection_string)
-        // .await
-        .expect("Failed to connect to DB");
+    let connection_pool = PgPoolOptions::new().connect_lazy_with(configuration.database.with_db());
 
     let address = format!(
         "{}:{}",
@@ -22,5 +19,5 @@ async fn main() -> Result<(), std::io::Error> {
     );
     let listener = TcpListener::bind(address)?;
 
-    run(listener, pool)?.await
+    run(listener, connection_pool)?.await
 }
