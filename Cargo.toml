@@ -24,6 +24,8 @@ tracing-log = "0.2.0"
 secrecy = { version = "0.10.3", features = ["serde"] }
 tracing-actix-web = "0.7.18"
 serde-aux = "4.7.0"
+unicode-segmentation = "1.12.0"
+validator = { version = "0.20.0", features = ["derive"] }
 
 [dependencies.sqlx]
 version = "0.8.6"
@@ -40,3 +42,7 @@ features = [
 [dev-dependencies]
 reqwest = "0.12.22"
 once_cell = "1.21.3"
+claims = "0.8.0"
+fake = "1.3.0"
+quickcheck = "1.0.3"
+quickcheck_macros = "1.1.0"
